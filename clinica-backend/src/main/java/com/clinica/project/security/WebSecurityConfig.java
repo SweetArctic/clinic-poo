@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 @EnableMethodSecurity
 public class WebSecurityConfig {
+
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
@@ -34,8 +35,10 @@ public class WebSecurityConfig {
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
+
         return authProvider;
     }
 
@@ -46,19 +49,20 @@ public class WebSecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // for clarity, specify strength if you want: new BCryptPasswordEncoder(10)
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
-            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-            .authorizeHttpRequests(auth -> 
-                auth.requestMatchers("/api/auth/**").permitAll()
-                    .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
-                    .anyRequest().authenticated()
-            );
+                .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(auth ->
+                        auth.requestMatchers("/api/auth/**").permitAll()
+                                .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
+                                .anyRequest().authenticated()
+                );
 
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
