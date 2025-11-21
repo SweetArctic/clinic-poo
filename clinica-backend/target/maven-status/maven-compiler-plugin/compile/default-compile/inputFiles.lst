@@ -6,6 +6,7 @@ C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\infrastructure\model\HistoriaClinica.java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\infrastructure\model\Paciente.java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\domain\dto\LoginRequest.java
+C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\domain\dto\CitaCreateRequest.java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\domain\service\CitaService.java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\controller\AuthController.java
 C:\Users\Excha\Documents\GitHub\New-Poo\clinic-poo\clinica-backend\src\main\java\com\clinica\project\infrastructure\repository\HistoriaClinicaRepository.java

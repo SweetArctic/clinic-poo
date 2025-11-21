@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login | Clinica</title>
+<style>
+body{font-family:system-ui;background:#0f172a;color:#e5e7eb;margin:0}main{max-width:720px;margin:40px auto;padding:24px;background:#111827;border:1px solid #1f2937;border-radius:12px}h1{margin:0 0 16px;font-size:20px;color:#93c5fd}label{display:block;margin:12px 0 6px;color:#9ca3af}input{width:100%;padding:10px;border-radius:8px;border:1px solid #374151;background:#0b1220;color:#e5e7eb}button{margin-top:16px;padding:10px 14px;border-radius:8px;border:1px solid #2563eb;background:#1d4ed8;color:#fff;cursor:pointer}small{color:#9ca3af}a{color:#93c5fd}#token{font-family:monospace;word-break:break-all}
+</style>
+</head>
+<body>
+<main>
+<h1>Iniciar sesión</h1>
+<label>Usuario</label>
+<input id="username" placeholder="usuario" />
+<label>Contraseña</label>
+<input id="password" type="password" placeholder="********" />
+<button id="submit">Entrar</button>
+<p id="msg"></p>
+<small>¿No tienes cuenta? <a href="/register.html">Regístrate</a></small>
+</main>
+<script>
+async function apiLogin(body){ const r = await fetch('/api/auth/signin',{ method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body)}); const t = await r.text(); try{ return { ok:r.ok, status:r.status, data: JSON.parse(t)} }catch{ return { ok:r.ok, status:r.status, data:t } } }
+document.getElementById('submit').onclick = async () => {
+  const body = { username: document.getElementById('username').value.trim(), password: document.getElementById('password').value };
+  const res = await apiLogin(body);
+  const msg = document.getElementById('msg');
+  if(res.ok && res.data && res.data.token){ localStorage.setItem('clinica.token', res.data.token); msg.textContent = 'Login correcto. Redirigiendo…'; setTimeout(()=>{ location.href='/app.html' }, 500) } else { msg.textContent = 'Error ('+res.status+'): '+(res.data?.message||res.data) }
+}
+</script>
+</body>
+</html>

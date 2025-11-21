@@ -14,4 +14,8 @@ public class CitaService {
     public List<Cita> findAll() {
         return citaRepository.findAll();
     }
+
+    public Cita save(Cita cita) {
+        return citaRepository.save(cita);
+    }
 }

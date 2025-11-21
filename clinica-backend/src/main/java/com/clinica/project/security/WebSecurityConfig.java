@@ -43,8 +43,9 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
+    public AuthenticationManager authenticationManager() {
+        DaoAuthenticationProvider provider = authenticationProvider();
+        return new org.springframework.security.authentication.ProviderManager(provider);
     }
 
     @Bean
@@ -61,10 +62,12 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests(auth ->
                         auth.requestMatchers("/api/auth/**").permitAll()
                                 .requestMatchers("/api-docs/**", "/swagger-ui/**").permitAll()
+                                .requestMatchers("/", "/index.html", "/register.html", "/login.html", "/app.html", "/favicon.ico", "/static/**", "/css/**", "/js/**", "/images/**").permitAll()
                                 .anyRequest().authenticated()
                 );
 
         http.authenticationProvider(authenticationProvider());
+        http.userDetailsService(userDetailsService);
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
