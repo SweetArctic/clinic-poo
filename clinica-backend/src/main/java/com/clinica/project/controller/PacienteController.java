@@ -24,4 +24,9 @@ public class PacienteController {
     public Paciente createPaciente(@RequestBody Paciente paciente) {
         return pacienteService.save(paciente);
     }
+    @GetMapping("/buscar/{nombre}")
+    @PreAuthorize("hasRole('USER') or hasRole('DOCTOR') or hasRole('ADMIN')")
+    public List<Paciente> buscarPacientes(@PathVariable String nombre) {
+        return pacienteService.buscarPorNombre(nombre);
+    }
 }

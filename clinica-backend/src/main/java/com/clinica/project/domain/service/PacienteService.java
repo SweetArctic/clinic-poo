@@ -18,4 +18,8 @@ public class PacienteService {
     public Paciente save(Paciente paciente) {
         return pacienteRepository.save(paciente);
     }
+
+    public List<Paciente> buscarPorNombre(String nombre) {
+        return pacienteRepository.findByNombreContainingIgnoreCase(nombre);
+    }
 }
