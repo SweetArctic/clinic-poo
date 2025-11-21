@@ -1,13 +1,9 @@
 package com.clinica.project.infrastructure.model;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "roles")
-@Data
-@NoArgsConstructor
 public class Rol {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,7 +13,25 @@ public class Rol {
     @Column(length = 20)
     private ERol name;
     
+    public Rol() {}
+    
     public Rol(ERol name) {
+        this.name = name;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public ERol getName() {
+        return name;
+    }
+
+    public void setName(ERol name) {
         this.name = name;
     }
 }
